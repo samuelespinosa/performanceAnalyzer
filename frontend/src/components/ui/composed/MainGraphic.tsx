@@ -2,6 +2,7 @@ import { getChartOutsideData,formatMetricValue } from "@/lib/utils";
 import { Card, CardContent, CardFooter } from "../card";
 import { PieChartComposed } from "../PieChartComposed";
 import { PerformanceData} from "@/intefaces/PageSpeedData";
+import { getPerformanceTips } from "@/lib/performanceTips";
 
 interface MainGraphicProps {
   data: PerformanceData;
@@ -15,7 +16,7 @@ export default function MainGraphic({ data, screen}: MainGraphicProps) {
   screen === 'desktop' ? 'w-xs h-auto' :
   '';
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none text-sm ">
       <CardContent className="grid gap-4 md:grid-cols-2 w-full">
         <div className="flex justify-center">
           <img
@@ -31,9 +32,8 @@ export default function MainGraphic({ data, screen}: MainGraphicProps) {
           />
         </div>
       </CardContent>
-      
-      <CardFooter>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 justify-center text-sm text-muted-foreground p-4 w-full rounded-sm border">
+      <CardContent>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 justify-center text-muted-foreground p-4 w-full rounded-sm border">
           <div>
             <span className="block font-medium text-foreground">First Contentful Paint</span>
             <span>{formatMetricValue(data.firstContentfulPaint)}</span>
@@ -59,6 +59,26 @@ export default function MainGraphic({ data, screen}: MainGraphicProps) {
             <span>{scorePercentage}</span>
           </div>
         </div>
+      </CardContent>
+      <CardFooter>
+      <div className="p-4 border-t">
+        <h3 className="mb-2">Performance Recommendations</h3>
+        <div className="space-y-3">
+        {getPerformanceTips(data).map((tip) => (
+            <div key={tip.metric} className={`tip-${tip.severity}`}>
+              <div className="flex items-start gap-2">
+                <span className="emoji">{tip.emoji}</span>
+                <div>
+                  <p className="metric-title">
+                    {tip.metricData.title}: {formatMetricValue(tip.metricData)}
+                  </p>
+                  <p className="tip-message">{tip.message}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       </CardFooter>
     </Card>
   );
