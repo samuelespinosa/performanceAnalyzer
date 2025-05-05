@@ -4,16 +4,19 @@ import {
   push, 
   set 
 } from '../config/firebase.js';
+import { generateUrlHash } from '../utils.js';
 import { validatePageSpeedData } from './validateReport.js';
 
+
 export class ReportService {
+  
   static async createReport(url, reportData) {
     const validation = validatePageSpeedData(reportData);
     if (!validation.isValid) {
       throw new Error(`Invalid report data: ${validation.errors.join(', ')}`);
     }
 
-    const urlHash = this.generateUrlHash(url);
+    const urlHash = generateUrlHash(url);
     const reportsRef = getReportsRef(urlHash);
     const timestamp = new Date().toISOString();
 
@@ -30,11 +33,12 @@ export class ReportService {
       urlHash,
       reportId: newReportRef.key,
       timestamp,
-      action: snapshot.exists() ? 'appended' : 'created'
+      action: snapshot.exists() ? 'added' : 'created'
     };
   }
 
-  static async getReports(urlHash) {
+  static async getReports(url) {
+    const urlHash = generateUrlHash(url);
     const snapshot = await get(getReportsRef(urlHash));
     
     if (!snapshot.exists()) {
@@ -53,12 +57,5 @@ export class ReportService {
       });
     });
     return reports;
-  }
-
-  static generateUrlHash(url) {
-    return Buffer.from(url)
-      .toString('base64')
-      .replace(/[^a-z0-9]/gi, '')
-      .slice(0, 20);
   }
 }

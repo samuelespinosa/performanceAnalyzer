@@ -2,7 +2,7 @@ import * as React from "react";
 import { Label, Pie, PieChart } from "recharts";
 import { z } from "zod";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
-
+import { getScoreColor } from "@/lib/utils";
 const ViewBoxSchema = z.object({
   cx: z.number(),
   cy: z.number(),
@@ -36,26 +36,9 @@ export function PieChartComposed({ outsideData, score }: PieChartComposedProps) 
   const [isHovered, setIsHovered] = React.useState(false);
 
   // Determine colors based on score
-  const getScoreColor = () => {
-    if (score < 40) {
-      return {
-        primary: "red-500",       // Low score - red
-        secondary: "red-100"       // Light red for remaining
-      };
-    } else if (score >= 40 && score < 70) {
-      return {
-        primary: "yellow-500",    // Medium score - yellow
-        secondary: "yellow-100"    // Light yellow for remaining
-      };
-    } else {
-      return {
-        primary: "green-500",     // High score - green
-        secondary: "green-100"     // Light green for remaining
-      };
-    }
-  };
 
-  const scoreColors = getScoreColor();
+
+  const scoreColors = getScoreColor(score as number);
 
   const labelContent = (props: any) => {
     const viewBoxValidation = ViewBoxSchema.safeParse(props.viewBox);

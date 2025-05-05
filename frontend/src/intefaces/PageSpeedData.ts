@@ -41,3 +41,8 @@ export interface Metric {
     mobile: PerformanceData;
     desktop: PerformanceData;
   }
+
+  export interface Report{
+    url:string
+    data:PageSpeedData
+  }

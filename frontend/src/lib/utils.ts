@@ -111,3 +111,22 @@ export const getChartOutsideData =(data:PerformanceData)=>{
   ];
   return getOutsideDataColors(chartOutsideData)
 }
+
+export const getScoreColor = (score:number) => {
+  if (score < 40) {
+    return {
+      primary: "red-500",       // Low score - red
+      secondary: "red-100"       // Light red for remaining
+    };
+  } else if (score >= 40 && score < 70) {
+    return {
+      primary: "yellow-500",    // Medium score - yellow
+      secondary: "yellow-100"    // Light yellow for remaining
+    };
+  } else {
+    return {
+      primary: "green-500",     // High score - green
+      secondary: "green-100"     // Light green for remaining
+    };
+  }
+};

@@ -16,5 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const getReportsRef = (url) => ref(db, `reports/${url}`);
+const getTrackerRef = () => ref(db, 'tracker'); 
 
-export { getReportsRef, db, ref, set, get, push};
+export { getReportsRef,getTrackerRef, db, ref, set, get, push};

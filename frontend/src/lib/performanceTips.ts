@@ -38,7 +38,7 @@ export const getPerformanceTips = (data: PerformanceData): PerformanceTip[] => {
   const fcpValue = parseFloat(fcp.value);
   tips.push({
     metric: 'firstContentfulPaint',
-    emoji: fcpValue < 1800 ? '✅' : '⚠️',
+    emoji: fcpValue < 1800 ? '✅' : '🔴',
     message: fcpValue < 1800
       ? 'Excellent FCP! Consider preloading key resources.'
       : 'Optimize server response times and eliminate render-blocking resources.',
@@ -67,7 +67,7 @@ export const getPerformanceTips = (data: PerformanceData): PerformanceTip[] => {
   const scoreValue = parseFloat(scoreMetric.value);
   let scoreSeverity: 'good' | 'warning' | 'critical' = 'good';
   let scoreMessage = 'Excellent overall performance!';
-  let scoreEmoji = '🎉';
+  let scoreEmoji = '✅';
   
   if (scoreValue < 50) {
     scoreSeverity = 'critical';

@@ -1,13 +1,10 @@
 import {ReportService} from './reportService.js'
 export class ReportController {
+
   static async createReport(req, res) {
     try {
       const { url, data } = req.body;
       
-      if (!url || !/^https?:\/\/.+\..+/.test(url)) {
-        return ReportController.sendError(res, 400, 'Invalid URL format');
-      }
-
       const result = await ReportService.createReport(url, data);
       return ReportController.sendSuccess(
         res, 
@@ -22,11 +19,12 @@ export class ReportController {
 
   static async getReports(req, res) {
     try {
-      const { urlHash } = req.params;
-      const reports = await ReportService.getReports(urlHash);
+      const { url } = req.query;
+      if (!url) throw new Error('URL parameter is required');
+      const reports = await ReportService.getReports(url);
       
       return ReportController.sendSuccess(res, 200, {
-        urlHash,
+        url,
         count: reports.length,
         reports
       });
@@ -48,7 +46,7 @@ export class ReportController {
   static handleError(res, error) {
     console.error('Report error:', error);
     const status = error.message.includes('found') ? 404 : 500;
-    const message = error.message;
-    return res.status(status).json({ success: false, message });
+    
+    return res.status(status).json({ success: false, message:"Internal Server Error", error:error.message});
   }
 }
