@@ -1,4 +1,4 @@
-import {addToTracker,getTrackedUrls} from './trackerService.js';
+import {addToTracker,checkTracked} from './trackerService.js';
 
 export async function setTrackedUrl(req, res) {
     try {
@@ -19,15 +19,14 @@ export async function setTrackedUrl(req, res) {
     }
   }
 
-export async function getTrackedList(req, res) {
+export async function isTracked(req, res) {
   try {
-  
-    const reports = getTrackedUrls();
+    const { url } = req.query;
+    const tracked= await checkTracked(url);
     
-    return ReportController.sendSuccess(res, 200, {
-      url,
-      count: reports.length,
-      reports
+    return   res.json({
+      succes:true,
+      isTracked:tracked
     });
 
   } catch (error) {

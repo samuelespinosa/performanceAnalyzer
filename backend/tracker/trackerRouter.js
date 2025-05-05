@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import {getTrackedList, setTrackedUrl} from './trackerController.js'
+import {isTracked, setTrackedUrl} from './trackerController.js'
 
 const router = Router();
 
-router.get('/', getTrackedList);
+router.get('/', isTracked);
 router.post('/', setTrackedUrl);
 
 
