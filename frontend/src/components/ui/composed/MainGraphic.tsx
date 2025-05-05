@@ -6,7 +6,7 @@ import { getPerformanceTips } from "@/lib/performanceTips";
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils";
 import { AlertCircle, AlertTriangle, CheckCircle2 } from "lucide-react";
-import { useState,useMemo, act } from "react";
+
 
 interface MainGraphicProps {
   data: PageSpeedData;

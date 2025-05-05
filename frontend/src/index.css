@@ -157,7 +157,7 @@
       @apply border-border outline-ring/50;
     }
     body {
-      @apply bg-pattern text-foreground m-0 min-w-[320px] min-h-screen;
+      @apply text-foreground m-0 min-w-[320px] min-h-screen;
     }
     :root {
       --background: 0 0% 100%;
