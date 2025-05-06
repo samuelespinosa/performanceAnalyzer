@@ -2,35 +2,27 @@ name: Remote Git Pull via SSH
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  run_pull:
-    name: Run Git Pull on Remote
+  deploy:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        chmod 700 ~/.ssh
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        chmod 600 ~/.ssh/known_hosts
-        
-    - name: Connect and pull
-      run: |
-        ssh -o StrictHostKeyChecking=no \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "cd ${{ secrets.WORK_DIR }} && \
-             git checkout ${{ secrets.MAIN_BRANCH }} && \
-             git pull && \
-             exit"
-             
-    - name: Cleanup
-      run: |
-        rm -f ~/.ssh/id_rsa
-        rm -f ~/.ssh/known_hosts
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          # Write the key preserving newlines
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          # Verify the key was written correctly (debugging)
+          echo "Key contents:"
+          head -n 3 ~/.ssh/id_rsa
+          tail -n 3 ~/.ssh/id_rsa
+          # Add host to known_hosts
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Test SSH connection
+        run: ssh -vvv -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'SSH test successful'"
