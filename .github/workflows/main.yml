@@ -3,32 +3,46 @@ on:
     branches:
       - main
   workflow_dispatch:
-  
-jobs:
-  run_pull:
-    name: run pull and restart server
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Install SSH keys
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-    - name: Connect, pull, and restart PM2 app
-      run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << "EOF"
-            set -e
-            export PATH=$PATH:/usr/local/bin  # Adjust this if npm is located elsewhere
-            cd ${{ secrets.WORK_DIR }}
-            git stash || true
-            git checkout ${{ secrets.MAIN_BRANCH }}
-            git pull
-            cp ../.env ./backend
-            cd backend
-            /home/ubuntu/.nvm/versions/node/v22.15.0/bin/npm i
-            /home/ubuntu/.nvm/versions/node/v22.15.0/bin/pm2 restart analyzerBackend
-          EOF
 
-    - name: Cleanup
-      run: rm -rf ~/.ssh
+jobs:
+  deploy:
+    name: Deploy to Remote Server
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up SSH
+      run: |
+        # Create the SSH key file with the private key from secrets
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+        # Add the server's host key to the known_hosts file
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy Application
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          echo "Connected to remote server: $(hostname)"
+          echo "Running deployment script on remote server..."
+
+          # Navigate to the working directory
+          cd ${{ secrets.WORK_DIR }}
+
+          # Handle Git updates
+          git stash || true
+          git checkout ${{ secrets.MAIN_BRANCH }}
+          git pull origin ${{ secrets.MAIN_BRANCH }}
+
+          # Copy environment variables
+          cp ../.env ./backend
+
+          # Ensure Node.js and PM2 are available
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm use v22.15.0
+          npm install
+
+          # Restart the application using PM2
+          pm2 restart analyzerBackend
+        EOF
