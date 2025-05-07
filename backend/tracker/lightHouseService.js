@@ -72,5 +72,3 @@ export async function getFullReport(url) {
     }
   };
 }
-
-console.log(getFullReport('https://example.com'))

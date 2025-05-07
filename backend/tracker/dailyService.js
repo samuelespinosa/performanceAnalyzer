@@ -1,6 +1,6 @@
 
 import { getTrackedUrls } from './trackerService.js';
-import { getFullReport } from './lighthouseService.js';
+import { getFullReport } from './lightHouseService.js';
 import { ReportService } from '../report/reportService.js';
 
 export default async function dailyService(){
