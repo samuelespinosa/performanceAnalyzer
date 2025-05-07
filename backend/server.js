@@ -1,6 +1,5 @@
 import { configDotenv } from 'dotenv';
 configDotenv();
-
 import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
