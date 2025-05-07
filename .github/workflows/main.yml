@@ -26,8 +26,8 @@ jobs:
             git pull
             cp ../.env ./backend
             cd backend
-            npm i
-            pm2 restart analyzerBackend
+            /home/ubuntu/.nvm/versions/node/v22.15.0/bin/npm i
+            /home/ubuntu/.nvm/versions/node/v22.15.0/bin/pm2 restart analyzerBackend
           EOF
 
     - name: Cleanup
