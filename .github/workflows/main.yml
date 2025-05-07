@@ -33,14 +33,17 @@ jobs:
           git stash || true
           git checkout ${{ secrets.MAIN_BRANCH }}
           git pull origin ${{ secrets.MAIN_BRANCH }}
-
+          
           # Copy environment variables
           cp ../.env ./backend
-
+          cd /home/ubuntu/performanceAnalyzer/backend
           # Ensure Node.js and PM2 are available
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm use v22.15.0
+          nvm use 22
+
+          # Install dependencies
+          cd backend
           npm install
 
           # Restart the application using PM2
