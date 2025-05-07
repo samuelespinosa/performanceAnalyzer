@@ -27,7 +27,7 @@ jobs:
           echo "Running deployment script on remote server..."
 
           # Navigate to the working directory
-          cd ${{ secrets.WORK_DIR }
+          cd ${{ secrets.WORK_DIR }}
 
           # Handle Git updates
           git stash || true
