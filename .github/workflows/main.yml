@@ -22,7 +22,10 @@ jobs:
           cd ${{ secrets.WORK_DIR }}
           git checkout ${{ secrets.MAIN_BRANCH }}
           git pull
-          pm2 restart my-app
+          cp ../.env ./backend
+          cd backend
+          npm i
+          pm2 restart analyzerBackend
         EOF
 
     - name: cleanup
