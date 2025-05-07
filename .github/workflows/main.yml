@@ -26,8 +26,6 @@ jobs:
           git pull
           cp ../.env ./backend
           cd backend
-          [ -x "$(command -v npm)" ] || (echo "npm not found, installing..." && curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt-get install -y nodejs)
-          [ -x "$(command -v pm2)" ] || (echo "pm2 not found, installing..." && sudo npm install -g pm2)
           npm i
           pm2 restart analyzerBackend
         EOF
