@@ -12,7 +12,24 @@ import dailyService from './tracker/dailyService.js';
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://performance-analyzer-nu.vercel.app',
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
+};
+
+app.use(cors(corsOptions));
 app.use(compression());
 app.use(
   helmet.contentSecurityPolicy({
