@@ -50,8 +50,8 @@ cron.schedule('0 3 * * *',dailyService);
 const PORT = process.env.PORT;
 
 const options = {
-  key: fs.readFileSync('selfsigned.key'),
-  cert: fs.readFileSync('selfsigned.crt'),
+  key: fs.readFileSync('/home/ubuntu/selfsigned.key'),
+  cert: fs.readFileSync('/home/ubuntu/selfsigned.crt'),
 };
 
 https.createServer(options, app).listen(PORT, () => {
