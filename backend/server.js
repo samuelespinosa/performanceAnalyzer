@@ -5,6 +5,8 @@ import cors from 'cors';
 import cron from 'node-cron';
 import compression from 'compression';
 import helmet from 'helmet';
+import fs from 'fs';
+import https from 'https';
 import rateLimit from 'express-rate-limit';
 import reportRouter from './report/reportRouter.js';
 import trackerRouter from './tracker/trackerRouter.js';
@@ -45,7 +47,13 @@ app.use(rateLimit({
 app.use('/api/reports', reportRouter);
 app.use('/api/tracker', trackerRouter);
 cron.schedule('0 3 * * *',dailyService);
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const PORT = process.env.PORT;
+
+const options = {
+  key: fs.readFileSync('selfsigned.key'),
+  cert: fs.readFileSync('selfsigned.crt'),
+};
+
+https.createServer(options, app).listen(PORT, () => {
+  console.log('Server running on https://localhost:3002');
 });
