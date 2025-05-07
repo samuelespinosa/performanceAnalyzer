@@ -17,19 +17,18 @@ jobs:
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: Connect, pull, and restart PM2 app
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          set -e
-          source ~/.bashrc || true
-          source ~/.profile || true
-          cd ${{ secrets.WORK_DIR }}
-          git stash || true
-          git checkout ${{ secrets.MAIN_BRANCH }}
-          git pull
-          cp ../.env ./backend
-          cd backend
-          npm i
-          pm2 restart analyzerBackend
-        EOF
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << "EOF"
+            set -e
+            export PATH=$PATH:/usr/local/bin  # Adjust this if npm is located elsewhere
+            cd ${{ secrets.WORK_DIR }}
+            git stash || true
+            git checkout ${{ secrets.MAIN_BRANCH }}
+            git pull
+            cp ../.env ./backend
+            cd backend
+            npm i
+            pm2 restart analyzerBackend
+          EOF
 
     - name: Cleanup
       run: rm -rf ~/.ssh
