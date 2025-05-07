@@ -10,23 +10,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: install ssh keys
+    - name: Install SSH keys
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
-    - name: connect, pull, and restart pm2 app
+    - name: Connect, pull, and restart PM2 app
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          set -e
           cd ${{ secrets.WORK_DIR }}
+          git stash || true
           git checkout ${{ secrets.MAIN_BRANCH }}
           git pull
           cp ../.env ./backend
           cd backend
+          [ -x "$(command -v npm)" ] || (echo "npm not found, installing..." && curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt-get install -y nodejs)
+          [ -x "$(command -v pm2)" ] || (echo "pm2 not found, installing..." && sudo npm install -g pm2)
           npm i
           pm2 restart analyzerBackend
         EOF
 
-    - name: cleanup
+    - name: Cleanup
       run: rm -rf ~/.ssh
