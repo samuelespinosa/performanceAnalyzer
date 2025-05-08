@@ -64,7 +64,7 @@ function App() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 bg-background">
+    <div className=" w-5xl px-4 py-10 rounded-2xl min-h-screen md:min-h-auto">
       <SearchBar setUrl={setUrl} isLoading={isLoading} />
       <Suspense fallback={<div className="text-center py-8 text-muted-foreground">Loading...</div>}>
       {currentReport && !isLoading ? (<>
