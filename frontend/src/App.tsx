@@ -83,7 +83,7 @@ function App() {
   };
 
   return (
-    <div className="w-5xl px-4 py-10 rounded-2xl min-h-screen md:min-h-auto">
+    <div className="md:min-w-4xl px-4 py-10 rounded-2xl min-h-screen md:min-h-auto">
       <SearchBar setUrl={setUrl} isLoading={isLoading} />
       <Suspense
         fallback={
