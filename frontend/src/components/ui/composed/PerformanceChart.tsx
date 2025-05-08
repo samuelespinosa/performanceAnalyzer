@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { CartesianGrid, XAxis, AreaChart, Area } from "recharts"
-import { ChartData } from "@/intefaces/ChartTypes"
+import * as React from "react";
+import { CartesianGrid, XAxis, AreaChart, Area } from "recharts";
+import { ChartData } from "@/intefaces/ChartTypes";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -17,7 +17,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
 import {
   Select,
@@ -25,56 +25,58 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
-const getChartConfig =(avgScores:any)=>{ return {
-  views: {
-    label: "Performance",
-  },
-  desktop: {
-    label: "Desktop",
-    color: `var(--color-${getScoreColor(avgScores.desktop*100).primary})`,
-  },
-  mobile: {
-    label: "Mobile",
-    color: `var(--color-${getScoreColor(avgScores.mobile*100).primary})`,
-  },
-  
-} satisfies ChartConfig
-}
-import { getScoreColor } from "@/lib/utils"
-export default function PerformanceChart({chartData,url}:{chartData:ChartData[],url:string}) {
+const getChartConfig = (avgScores: any) => {
+  return {
+    views: {
+      label: "Performance",
+    },
+    desktop: {
+      label: "Desktop",
+      color: `var(--color-${getScoreColor(avgScores.desktop * 100).primary})`,
+    },
+    mobile: {
+      label: "Mobile",
+      color: `var(--color-${getScoreColor(avgScores.mobile * 100).primary})`,
+    },
+  } satisfies ChartConfig;
+};
+import { getScoreColor } from "@/lib/utils";
 
+export default function PerformanceChart({ chartData, url }: { chartData: ChartData[]; url: string }) {
   const [timeRange, setTimeRange] = React.useState("90d");
-  const filteredData = chartData.filter((item) => {
-    // Get current date in local timezone (start of day)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    // Parse item date (assuming YYYY-MM-DD format)
-    const itemDate = new Date(item.date + 'T00:00:00'); // Add time to ensure local timezone
-    
-    let daysToSubtract = timeRange === "7d" ? 6 : 
-                        timeRange === "30d" ? 29 : 
-                        89; // 90 days minus today
-    
-    const cutoffDate = new Date(today);
-    cutoffDate.setDate(today.getDate() - daysToSubtract);
-    
-    return itemDate >= cutoffDate && itemDate <= today;
-  });
-  
 
-  const scoreAvg=chartData.reduce((acum,item)=>{
-    return{
-      desktop:Math.round((acum.desktop+item.desktop)*100)/chartData.length,
-      mobile:Math.round((acum.mobile+item.mobile)*100)/chartData.length
-    }
-  
-  },{desktop:0,mobile:0}
-)
-const chartConfig=getChartConfig(scoreAvg)
-  
+  // Filter the data based on the selected time range
+  const filteredData = chartData.filter((item) => {
+    // Get the current date in UTC (start of day)
+    const todayUTC = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
+
+    // Parse the item date as UTC
+    const itemDate = new Date(`${item.date}T00:00:00Z`); // Force UTC parsing
+
+    // Calculate the cutoff date based on the selected time range
+    let daysToSubtract =
+      timeRange === "7d" ? 7 : timeRange === "30d" ? 30 : 90; // Use full days for clarity
+    const cutoffDateUTC = new Date(todayUTC);
+    cutoffDateUTC.setUTCDate(cutoffDateUTC.getUTCDate() - (daysToSubtract - 1)); // Subtract full range minus 1 to include today
+
+    return itemDate >= cutoffDateUTC && itemDate <= todayUTC;
+  });
+
+  // Calculate the average scores for desktop and mobile
+  const scoreAvg = chartData.reduce(
+    (acum, item) => {
+      return {
+        desktop: acum.desktop + item.desktop / chartData.length,
+        mobile: acum.mobile + item.mobile / chartData.length,
+      };
+    },
+    { desktop: 0, mobile: 0 }
+  );
+
+  // Obtain the chart configuration
+  const chartConfig = getChartConfig(scoreAvg);
 
   return (
     <Card>
@@ -82,7 +84,7 @@ const chartConfig=getChartConfig(scoreAvg)
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle>Performance over time</CardTitle>
           <CardDescription>
-            {url} Performance History{timeRange}
+            {url} Performance History ({timeRange})
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -106,7 +108,7 @@ const chartConfig=getChartConfig(scoreAvg)
         </Select>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
-      <ChartContainer
+        <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
         >
@@ -145,11 +147,12 @@ const chartConfig=getChartConfig(scoreAvg)
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
-                const date = new Date(value)
+                const date = new Date(value);
+                date.setDate(date.getDate() + 1);
                 return date.toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
-                })
+                });
               }}
             />
             <ChartTooltip
@@ -157,10 +160,12 @@ const chartConfig=getChartConfig(scoreAvg)
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
+                    const date = new Date(`${value}T00:00:00Z`); // Parse as UTC
+                    date.setDate(date.getDate() + 1); // Add 1 day
+                    return date.toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
-                    })
+                    });
                   }}
                   indicator="dot"
                 />
@@ -185,5 +190,5 @@ const chartConfig=getChartConfig(scoreAvg)
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

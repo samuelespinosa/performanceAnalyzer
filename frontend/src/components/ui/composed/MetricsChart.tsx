@@ -55,7 +55,8 @@ export function MetricsChart({title,chartData}:{title:string,chartData:any[]}) {
                 tickMargin={8}
                 minTickGap={32}
                 tickFormatter={(value) => {
-                  const date = new Date(value)
+                  const date = new Date(value);
+                  date.setDate(date.getDate() + 1);
                   return date.toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
