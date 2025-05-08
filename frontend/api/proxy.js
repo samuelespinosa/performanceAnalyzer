@@ -1,10 +1,10 @@
 // api/proxy.ts
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+
 import axios from 'axios'
 
 const TARGET = "http://ec2-18-226-133-140.us-east-2.compute.amazonaws.com:3002/api/reports"
 
- const handler= async (req: VercelRequest, res: VercelResponse)=>{
+ const handler= async (req, res)=>{
   const { method, query, body } = req
 
   try {
@@ -19,7 +19,7 @@ const TARGET = "http://ec2-18-226-133-140.us-east-2.compute.amazonaws.com:3002/a
     }
 
     res.status(405).json({ error: 'Method not allowed' })
-  } catch (err: any) {
+  } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Proxy error', detail: err.message })
   }
