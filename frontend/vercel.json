@@ -1,7 +1,12 @@
 {
   "functions": {
-    "api/report.ts": {
-      "runtime": "vercel-node@3"
+    "api/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "build": {
+    "env": {
+      "VITE_REPORT_API_URL": "/api/reports"
     }
   }
 }
