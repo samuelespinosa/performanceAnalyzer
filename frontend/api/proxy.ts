@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const TARGET = "http://ec2-18-226-133-140.us-east-2.compute.amazonaws.com:3002/api/reports"
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+ const handler= async (req: VercelRequest, res: VercelResponse)=>{
   const { method, query, body } = req
 
   try {
@@ -24,3 +24,4 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.status(500).json({ error: 'Proxy error', detail: err.message })
   }
 }
+export { handler as default }
