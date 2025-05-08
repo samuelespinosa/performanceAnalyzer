@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 
-const TARGET = "http://ec2-3-135-218-161.us-east-2.compute.amazonaws.com:3002/api/reports"
+const TARGET = "http://ec2-3-135-218-161.us-east-2.compute.amazonaws.com:3002"
 
  const handler= async (req, res)=>{
   const { method, query, body } = req
