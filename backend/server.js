@@ -13,7 +13,7 @@ import dailyService from './tracker/dailyService.js';
 const app = express();
 app.use(express.json());
 const allowedOrigins = [
-  'http://localhost:5173',
+  'http://localhost',
   'https://performance-analyzer-nu.vercel.app',
 ];
 
