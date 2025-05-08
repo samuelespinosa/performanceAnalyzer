@@ -63,7 +63,7 @@ export default function PerformanceChart({chartData,url}:{chartData:ChartData[],
     
     return itemDate >= cutoffDate && itemDate <= today;
   });
-  console.log('filteredData',filteredData);
+  
 
   const scoreAvg=chartData.reduce((acum,item)=>{
     return{

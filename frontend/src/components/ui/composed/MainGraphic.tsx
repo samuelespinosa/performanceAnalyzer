@@ -1,6 +1,6 @@
 import { getChartOutsideData,formatMetricValue } from "@/lib/utils";
 import { Card, CardContent, CardFooter,CardHeader,CardTitle,CardDescription } from "../card";
-import { PieChartComposed } from "../PieChartComposed";
+import { PieChartComposed } from "./PieChartComposed";
 import { PageSpeedData, PerformanceData} from "@/intefaces/PageSpeedData";
 import { getPerformanceTips } from "@/lib/performanceTips";
 import { Separator } from "@/components/ui/separator"

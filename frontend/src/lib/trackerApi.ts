@@ -1,25 +1,24 @@
 import axios from 'axios';
-import { Report } from '@/intefaces/PageSpeedData';
 
 // Determine the base URL dynamically
 const baseURL =
     import.meta.env.VITE_ENV === 'development' 
-    ? import.meta.env.VITE_REPORT_API_URL+'/api/reports'
-    : '/api/reportsProxy';
+    ? import.meta.env.VITE_REPORT_API_URL+'/api/tracker'
+    : '/api/trackerProxy';
 
 // Create an axios instance with the dynamic base URL
 const api = axios.create({
   baseURL,
 });
 
-export async function getReports(url: string) {
+export async function isTracked(url: string) {
   const res = await api.get('', {
-    params: { url }, // No need to attach "/api/proxy" or anything; baseURL handles it
+    params: { url },
   });
   return res.data;
 }
 
-export async function pushReport(data: Report) {
+export async function setTracked(data:{url:string}) {
   const res = await api.post('', data);
   return res.data;
 }

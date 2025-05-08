@@ -1,6 +1,6 @@
 // context/PageSpeedContext.tsx
 import { createContext, useContext, useState, ReactNode } from 'react'
-import { fetchData } from './lib/api'
+import { fetchData } from '../lib/api'
 
 type Strategy = 'mobile' | 'desktop'
 
