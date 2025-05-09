@@ -2,13 +2,6 @@
 
 Performance Analyzer is a tool designed to measure track and evaluate the performance of web applications. 
 
-## Features
-
-- **Detailed Performance Metrics**: Analyze and visualize key performance metrics of your web applications.
-- **Cross-Browser Support**: Works seamlessly across major browsers.
-- **Customizable**: Adapt the tool to your specific needs with customizable settings and configurations.
-- **TypeScript-Based**: Built with TypeScript for type safety and modern JavaScript features.
-
 ## Tech Stack
 
 The project is built using the following technologies:
@@ -34,6 +27,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact
 
 For questions or feedback, please reach out to [Samuel Espinosa](https://github.com/samuelespinosa).
-```
 
 This is a general template. If there are specific functionalities, usage examples, or other details you'd like to include, let me know, and I can refine it further!
