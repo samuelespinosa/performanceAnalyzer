@@ -1,31 +1,72 @@
-# Performance Analyzer
+# 🚀 Performance Analyzer
 
-Performance Analyzer is a tool designed to measure track and evaluate the performance of web applications. 
+**Performance Analyzer** is a modern tool designed to measure, track, and evaluate the performance of web applications over time. It leverages Google's PageSpeed Insights API to deliver detailed metrics and actionable recommendations for optimization.
 
-## Tech Stack
+## 📊 Analytics
 
-The project is built using the following technologies:
+This project uses the **Google PageSpeed Insights API** to analyze and retrieve performance metrics such as:
 
-- **TypeScript**: Main programming language, ensuring code quality and maintainability.
-- **JavaScript**: Additional support for dynamic functionality.
-- **CSS**: Styling for UI components.
-- **HTML**: Structuring the application interface.
+- First Contentful Paint
+- Largest Contentful Paint
+- Total Blocking Time
+- Speed Index
+- Cumulative Layout Shift
 
-## Usage
+These metrics are fetched for both **mobile** and **desktop** strategies, processed, and displayed in an easy-to-read format with visual feedback and historical tracking.
+
+## ⚙️ Tech Stack
+
+The application is built with the following technologies:
+
+- **TypeScript** – Ensures type safety and robust code structure
+- **JavaScript** – Enhances interactivity and dynamic features
+- **HTML & CSS** – Interface structure and styling
+- **Vite** – Lightning-fast frontend tooling
+- **Express.js** – Backend server for handling API calls and report logic
+
+## 🧪 Usage
 
 1. Launch the application in your browser.
-2. Input the URL or application you want to analyze.
-3. View the results, including detailed performance metrics and recommendations for optimization.
-4. Save a report if you want to include it in the history for future reference.
-5. Set a tracker to automatically run performance tests and track metrics over time.
+2. Enter the URL of the website you want to analyze.
+3. View performance results and optimization recommendations.
+4. Save the report to the history for future tracking.
+5. Set up trackers to automatically re-test performance on a schedule.
 
+## 🚧 Feature Roadmap
 
-## License
+### ✅ Completed
+- Report Dashboard
+- PageSpeed API Integration
+- Save Report Feature
+- History Dashboard
+- URL Tracker
+- Performance Recommendations
+
+### 🧠 Planned
+- AI-Powered Optimization Recommendations
+- User Authentication (Login/Register)
+- User-Based Tracked Sites and Report History
+
+## 🛠️ DevOps & Deployment
+
+### Backend
+- **CI/CD** is handled using **GitHub Actions**.
+- Upon pushing to the main branch, the backend is deployed automatically to an **AWS EC2 instance**.
+
+### Frontend
+- The frontend (Vite-based) is deployed on **Vercel**.
+- Each push to the main branch triggers an automatic deployment via Vercel’s GitHub integration.
+
+## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Contact
+## 📬 Contact
 
-For questions or feedback, please reach out to [Samuel Espinosa](https://github.com/samuelespinosa).
+Maintained by [Samuel Espinosa](https://github.com/samuelespinosa).  
+For feedback or collaboration, feel free to open an issue or pull request.
 
-This is a general template. If there are specific functionalities, usage examples, or other details you'd like to include, let me know, and I can refine it further!
+---
+
+Want to add deployment diagrams, badge indicators (e.g., Vercel/GitHub Actions), or screenshots? I can help with that too.
+
