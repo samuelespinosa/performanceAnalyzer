@@ -62,6 +62,10 @@ The application is built with the following technologies:
 
 This project is licensed under the [MIT License](LICENSE).
 
+## Known Issues
+
+1.When a pageSpeed query fails the page has to be reload to try again. Context is not allowing to query again (Fix Date: may 15)
+
 ## Contact
 
 Maintained by [Samuel Espinosa](https://github.com/samuelespinosa).  
