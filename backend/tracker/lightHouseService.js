@@ -42,7 +42,7 @@ function getMetricWeight(auditRefs, metricId) {
 // Fetch data from Lighthouse API
 export async function fetchLighthouseData(url, strategy = 'mobile') {
   try {
-    const apiKey = 'AIzaSyB0NA4C_JS0nYsgLr6XYP6NB0akYoGJSnk';
+    const apiKey = process.env.GOOGLE_API_KEY;
     const res = await axios.get('https://www.googleapis.com/pagespeedonline/v5/runPagespeed', {
       params: {
         url,
