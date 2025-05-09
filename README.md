@@ -23,8 +23,9 @@ The project is built using the following technologies:
 1. Launch the application in your browser.
 2. Input the URL or application you want to analyze.
 3. View the results, including detailed performance metrics and recommendations for optimization.
+4. Save a report if you want to include it in the history for future reference.
+5. Set a tracker to automatically run performance tests and track metrics over time.
 
-## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
 
