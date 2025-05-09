@@ -7,12 +7,12 @@ export default async function dailyService(){
   console.log('🏃‍♂️ Running daily performance check...');
   try {
     const urls = await getTrackedUrls();
-    
+    console.log(urls)
     for (const url of urls) {
       try {
         console.log(`🔍 Checking ${url}...`);
-        const report = await getFullReport(url);
-        await ReportService.createReport(url,report);
+        const report = await getFullReport(url.originalUrl);
+        await ReportService.createReport(url.hashedUrl,report);
         console.log(`✅ Updated report for ${url}`);
       } catch (error) {
         console.error(`❌ Failed to update ${url}:`, error.message);
@@ -24,3 +24,5 @@ export default async function dailyService(){
     console.error('❌ Cron job failed:', error);
   }
 }
+
+//dailyService()
