@@ -1,8 +1,8 @@
-# 🚀 Performance Analyzer
+# Performance Analyzer
 
 **Performance Analyzer** is a modern tool designed to measure, track, and evaluate the performance of web applications over time. It leverages Google's PageSpeed Insights API to deliver detailed metrics and actionable recommendations for optimization.
 
-## 📊 Analytics
+## Analytics
 
 This project uses the **Google PageSpeed Insights API** to analyze and retrieve performance metrics such as:
 
@@ -14,7 +14,7 @@ This project uses the **Google PageSpeed Insights API** to analyze and retrieve 
 
 These metrics are fetched for both **mobile** and **desktop** strategies, processed, and displayed in an easy-to-read format with visual feedback and historical tracking.
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 The application is built with the following technologies:
 
@@ -24,7 +24,7 @@ The application is built with the following technologies:
 - **Vite** – Lightning-fast frontend tooling
 - **Express.js** – Backend server for handling API calls and report logic
 
-## 🧪 Usage
+## Usage
 
 1. Launch the application in your browser.
 2. Enter the URL of the website you want to analyze.
@@ -32,9 +32,9 @@ The application is built with the following technologies:
 4. Save the report to the history for future tracking.
 5. Set up trackers to automatically re-test performance on a schedule.
 
-## 🚧 Feature Roadmap
+##  Feature Roadmap
 
-### ✅ Completed
+### Completed
 - Report Dashboard
 - PageSpeed API Integration
 - Save Report Feature
@@ -42,12 +42,12 @@ The application is built with the following technologies:
 - URL Tracker
 - Performance Recommendations
 
-### 🧠 Planned
+### Planned
 - AI-Powered Optimization Recommendations
 - User Authentication (Login/Register)
 - User-Based Tracked Sites and Report History
 
-## 🛠️ DevOps & Deployment
+## DevOps & Deployment
 
 ### Backend
 - **CI/CD** is handled using **GitHub Actions**.
@@ -57,16 +57,11 @@ The application is built with the following technologies:
 - The frontend (Vite-based) is deployed on **Vercel**.
 - Each push to the main branch triggers an automatic deployment via Vercel’s GitHub integration.
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## 📬 Contact
+## Contact
 
 Maintained by [Samuel Espinosa](https://github.com/samuelespinosa).  
 For feedback or collaboration, feel free to open an issue or pull request.
-
----
-
-Want to add deployment diagrams, badge indicators (e.g., Vercel/GitHub Actions), or screenshots? I can help with that too.
-
