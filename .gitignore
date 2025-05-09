@@ -24,8 +24,8 @@ bower_components/
 .env
 .env.local
 .env.*.local
-
-# Vite/Next.js/React build artifacts
+./frontend/.env
+./backend/.env
 /.vite/
 *.cache
 *.env

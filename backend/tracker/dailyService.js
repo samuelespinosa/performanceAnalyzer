@@ -12,7 +12,8 @@ export default async function dailyService(){
       try {
         console.log(`🔍 Checking ${url}...`);
         const report = await getFullReport(url.originalUrl);
-        await ReportService.createReport(url.hashedUrl,report);
+        console.log(report);
+        await ReportService.createReport(url.hashedUrl,report.data);
         console.log(`✅ Updated report for ${url}`);
       } catch (error) {
         console.error(`❌ Failed to update ${url}:`, error.message);
@@ -25,4 +26,4 @@ export default async function dailyService(){
   }
 }
 
-//dailyService()
+dailyService()
