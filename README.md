@@ -28,9 +28,10 @@ The application is built with the following technologies:
 
 1. Launch the application in your browser.
 2. Enter the URL of the website you want to analyze.
-3. View performance results and optimization recommendations.
+3. View performance results, optimization, recommendations and historory.
 4. Save the report to the history for future tracking.
-5. Set up trackers to automatically re-test performance on a schedule.
+5. Set up trackers to automatically re-test performance daily and save the report. ( Check example.com to see a tracked website)
+
 
 ##  Feature Roadmap
 
