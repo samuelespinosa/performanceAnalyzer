@@ -123,7 +123,7 @@ function App() {
             </div>
           </>
         ) : (
-          !isLoading && (
+          !isLoading &&!currentReport && (
             <div className="text-center py-8 text-muted-foreground">
               Enter a URL to analyze performance
             </div>
