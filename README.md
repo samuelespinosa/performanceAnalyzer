@@ -1,6 +1,6 @@
 # Performance Analyzer
 
-Performance Analyzer is a tool designed to measure and evaluate the performance of web applications. With an emphasis on accuracy and simplicity, this project aims to help developers identify bottlenecks and optimize their codebase.
+Performance Analyzer is a tool designed to measure track and evaluate the performance of web applications. 
 
 ## Features
 
@@ -26,23 +26,6 @@ The project is built using the following technologies:
 4. Save a report if you want to include it in the history for future reference.
 5. Set a tracker to automatically run performance tests and track metrics over time.
 
-
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Make your changes and commit them:
-   ```bash
-   git commit -m "Add feature-name"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request.
 
 ## License
 
